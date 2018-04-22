@@ -4,10 +4,9 @@ An evaluation of ansible-vault as a generic secrets management utility
 
 ## Table of Contents
 
-1. [Overview] (#overview)
-2. [Initial assumptions] (#Initial assumptions)
+1. [Overview](#overview)
+2. [Initial assumptions](#Initial assumptions)
 3. [Not Included] (#not Included)
-4. [tl;dr] (#tl:dr)
 
 
 #### Overview

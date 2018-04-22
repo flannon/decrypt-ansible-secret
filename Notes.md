@@ -68,12 +68,12 @@ An example of a yamle structure made by ansible-vault
 
 #### Decrypting Ansible Secrets
 
-##### decryptas.sh
+#### decryptas.sh
 
   #python3
   #cfn-flip
   #jq
 
-## Other considerations not included in the current analysis
+## Other considerations
  --rprecommit hooks to ensure only encrypted values are checked in to your repo.
 

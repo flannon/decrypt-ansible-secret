@@ -66,7 +66,8 @@ An example of a yamle structure made by ansible-vault
           3635643736613164640a623435663163623932353266616438343038363330643534613162346466
           31623130363039376166636664383638343062373833326332306438356332653533 
 
-#### Descrypting Ansible Secrets
+#### Decrypting Ansible Secrets
+
 ##### decryptas.sh
 
   #python3

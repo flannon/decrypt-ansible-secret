@@ -17,7 +17,7 @@ An evaluation of ansible-vault as a generic secrets management utility
 
 Ansible-vault is a secrets managements systems that provides encryption and decryption services for managing secrets inside of ansible playbooks.  Within the ansible enviroment ansible-vault does a nice job of secrets management, but how does it perform as a generic secrets management service?
 
-#### Initial-assumptions
+#### Initial assumptions
 
 -	Encrypted passwords will be stored in repositories
 -	The operating system’s security context is implicitly trusted: i.e. given a properly configured user environment, and properly configured permissions that allow only user access, values from configuration files and exported environment variables are assumed to be trusted

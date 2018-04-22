@@ -1,0 +1,1 @@
+Ansible-vault is a secrets managements systems that provides encryption and decryption services for managing secrets inside of ansible playbooks.  Within the ansible enviroment ansible-vault does a nice job of secrets management, but how does it perform as a generic secrets management service?

@@ -8,8 +8,8 @@ An evaluation of ansible-vault as a generic secrets management utility
 2. [Initial assumptions](#initial-assumptions)
 2. [Ansible Examples](#ansible-examples)
 2. [YAML](#yaml)
-3. [decryptas.sh](#decriptas.sh)
-3. [Other Condiserations](#Other)
+3. [decryptas.sh](#decryptas.sh)
+3. [Other Condiserations](#other)
 
 
 #### Overview
@@ -54,7 +54,7 @@ Here’s where things kind of start to break down.  Since ansible-secrets was de
 $ echo '$ANSIBLE_VAULT;1.1;AES256
 386433646437643838303964343461666561656666383734653465613639363731626334633039303739656331363539303432656434343466313631386263340a316264656364363463626165373764313135333862616332396639646266356566383235376432623731393635303438326661303735633764663430626566650a30666439653964643233623561616633356264323264373438613437353361373831623336326339333032323036393336613633666362316666393536313139' | ansible-vault decrypt /dev/stdin --output=/dev/stderr --vault-password-file="~/.ansible/vault_password" > /dev/null
 
-## YAML
+#### YAML
 
 An example of a yamle structure made by ansible-vault
 
@@ -66,7 +66,8 @@ An example of a yamle structure made by ansible-vault
           3635643736613164640a623435663163623932353266616438343038363330643534613162346466
           31623130363039376166636664383638343062373833326332306438356332653533 
 
-## decryptas.sh
+#### decryptas.sh
+
   #python3
   #cfn-flip
   #jq

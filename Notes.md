@@ -5,8 +5,8 @@ An evaluation of ansible-vault as a generic secrets management utility
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Initial-assumptions](#initial-assumtions)
-2. [Ansible-Examples](#ansible-examples)
+2. [Initial-assumptions](#initial-assumptions)
+2. [Ansible Examples](#ansible-examples)
 2. [YAML](#_AML)
 3. [decryptas.sh](#decriptas.sh)
 3. [Other Condiserations](#Other)
@@ -23,7 +23,7 @@ Ansible-vault is a secrets managements systems that provides encryption and decr
 -	The operating system’s security context is implicitly trusted: i.e. given a properly configured user environment, and properly configured permissions that allow only user access, values from configuration files and exported environment variables are assumed to be trusted
 -	
 
-## Ansible examples
+#### Ansible examples
  
 # File encryption
     `ansible-vault encrypt_string 'mysecretword' --name encryptedpasswd --vault-password-file=vault_password > defaults/secrets.yml`

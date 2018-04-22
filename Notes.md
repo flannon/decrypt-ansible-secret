@@ -68,6 +68,11 @@ An example of a yamle structure made by ansible-vault
 
 #### Decrypting Ansible Secrets
 
+  ansible [vault.py](https://github.com/ansible/ansible/blob/6e737c8cb66df1500dba1c74369314dd8f65867c/lib/ansible/cli/vault.py)
+  [cfn-flip](https://github.com/awslabs/aws-cfn-template-flip)
+  [jq](https://github.com/stedolan/jq)
+
+
 #### decryptas.sh
 
   #python3

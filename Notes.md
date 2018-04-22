@@ -5,8 +5,8 @@ An evaluation of ansible-vault as a generic secrets management utility
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Initial-assumptions](#initial_assumtions)
-2. [Ansible-Examples](#ansible_examples)
+2. [Initial-assumptions](#initial-assumtions)
+2. [Ansible-Examples](#ansible-examples)
 2. [YAML](#_AML)
 3. [decryptas.sh](#decriptas.sh)
 3. [Other Condiserations](#Other)

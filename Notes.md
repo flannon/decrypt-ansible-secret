@@ -7,7 +7,7 @@ An evaluation of ansible-vault as a generic secrets management utility
 1. [Overview](#overview)
 2. [Initial assumptions](#initial-assumptions)
 2. [Ansible Examples](#ansible-examples)
-2. [YAML](#YAML)
+2. [YAML](#yaml)
 3. [decryptas.sh](#decriptas.sh)
 3. [Other Condiserations](#Other)
 
@@ -25,7 +25,7 @@ Ansible-vault is a secrets managements systems that provides encryption and decr
 
 #### Ansible examples
  
-# File encryption
+#### File encryption
     `ansible-vault encrypt_string 'mysecretword' --name encryptedpasswd --vault-password-file=vault_password > defaults/secrets.yml`
 
 

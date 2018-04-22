@@ -8,7 +8,7 @@ An evaluation of ansible-vault as a generic secrets management utility
 2. [Initial assumptions](#initial-assumptions)
 3. [Ansible Examples](#ansible-examples)
 4. [YAML](#yaml)
-5. [Decryptas.sh](#decryptas)
+5. [Decrypting ansible secrets](#decrypting-ansible-secrets)
 6. [Other Condiserations](#other)
 
 
@@ -66,7 +66,8 @@ An example of a yamle structure made by ansible-vault
           3635643736613164640a623435663163623932353266616438343038363330643534613162346466
           31623130363039376166636664383638343062373833326332306438356332653533 
 
-#### decryptas.sh
+#### Descrypting Ansible Secrets
+##### decryptas.sh
 
   #python3
   #cfn-flip

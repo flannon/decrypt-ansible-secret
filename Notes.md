@@ -68,6 +68,11 @@ An example of a yamle structure made by ansible-vault
 
 #### Decrypting Ansible Secrets
 
+  export ANSIBLE_VAULT_PASSWORD_FILE=~/.ansible/vault_password
+
+  Usage: 
+    ./decryptas.sh  ansible_secret_3 secretsfile.yaml
+
   ansible [vault.py](https://github.com/ansible/ansible/blob/6e737c8cb66df1500dba1c74369314dd8f65867c/lib/ansible/cli/vault.py)
   [cfn-flip](https://github.com/awslabs/aws-cfn-template-flip)
   [jq](https://github.com/stedolan/jq)
@@ -78,6 +83,11 @@ An example of a yamle structure made by ansible-vault
   #python3
   #cfn-flip
   #jq
+
+#### Node Wrapper
+
+    node -e 'require("./wrapper").init()'
+  
 
 ## Other considerations
  --rprecommit hooks to ensure only encrypted values are checked in to your repo.

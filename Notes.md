@@ -6,6 +6,7 @@ An evaluation of ansible-vault as a generic secrets management utility
 
 1. [Overview](#overview)
 2. [Initial assumptions](#initial-assumptions)
+3. [Ansible Supported Features](#ansible-supported-features)
 3. [Ansible Examples](#ansible-examples)
 4. [YAML](#yaml)
 5. [Decrypting ansible secrets](#decrypting-ansible-secrets)
@@ -22,6 +23,16 @@ Ansible-vault is a secrets managements systems that provides encryption and decr
 -	Encrypted passwords will be stored in repositories
 -	The operating system’s security context is implicitly trusted: i.e. given a properly configured user environment, and properly configured permissions that allow only user access, values from configuration files and exported environment variables are assumed to be trusted
 -	
+
+#### Ansible Supported Features
+
+Curently ansible-vault support encrypting and decrypting files and encrypting single variable output as yaml.  As of Ansible 2.3 it does not directly suport decrypting single varialbes.  There is an open issue regarding decypting single varialbes,
+
+    https://github.com/ansible/ansible/issues/26190
+
+As well as a nice python solution for decrypting single values from andrunah,
+
+    https://github.com/andrunah/ansible-vault-variable-updater
 
 #### Ansible examples
  
@@ -90,5 +101,5 @@ An example of a yamle structure made by ansible-vault
   
 
 ## Other considerations
- --rprecommit hooks to ensure only encrypted values are checked in to your repo.
+ --precommit hooks to ensure only encrypted values are checked in to your repo.
 

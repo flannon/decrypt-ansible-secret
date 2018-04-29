@@ -1,0 +1,3 @@
+export APP_VAR02=secret_value_2
+export APP_VAR03=secret_value_3
+export APP_VAR01=secret_value_1

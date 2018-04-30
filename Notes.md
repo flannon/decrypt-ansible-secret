@@ -22,7 +22,7 @@ Ansible-vault is a secrets managements systems that provides encryption and decr
 
 -	Encrypted passwords will be stored in repositories
 -	The operating system’s security context is implicitly trusted: i.e. given a properly configured user environment, and properly configured permissions that allow only user access, values from configuration files and exported environment variables are assumed to be trusted
--	
+-
 
 #### Ansible Supported Features
 
@@ -35,7 +35,7 @@ As well as a nice python solution for decrypting single values from andrunah,
     https://github.com/andrunah/ansible-vault-variable-updater
 
 #### Ansible examples
- 
+
 #### File encryption
     `ansible-vault encrypt_string 'mysecretword' --name encryptedpasswd --vault-password-file=vault_password > defaults/secrets.yml`
 
@@ -75,16 +75,16 @@ An example of a yamle structure made by ansible-vault
           3062303739643434376631366330313162613765343734370a636564613166623564656165343230
           34666432646637616162646465643531626231393339636435363264386239353831396234306363
           3635643736613164640a623435663163623932353266616438343038363330643534613162346466
-          31623130363039376166636664383638343062373833326332306438356332653533 
+          31623130363039376166636664383638343062373833326332306438356332653533
 
 #### Decrypting Ansible Secrets
 
   export ANSIBLE_VAULT_PASSWORD_FILE=~/.ansible/vault_password
 
-  Usage: 
+  Usage:
     ./decryptas.sh  ansible_secret_3 secretsfile.yaml
 
-  ansible [vault.py](https://github.com/ansible/ansible/blob/6e737c8cb66df1500dba1c74369314dd8f65867c/lib/ansible/cli/vault.py)
+  ansible [vault.py](https://github.com/ansible/ansible/tree/devel/lib/ansible/cli
   [cfn-flip](https://github.com/awslabs/aws-cfn-template-flip)
   [jq](https://github.com/stedolan/jq)
 
@@ -98,8 +98,7 @@ An example of a yamle structure made by ansible-vault
 #### Node Wrapper
 
     node -e 'require("./wrapper").init()'
-  
+
 
 ## Other considerations
  --precommit hooks to ensure only encrypted values are checked in to your repo.
-

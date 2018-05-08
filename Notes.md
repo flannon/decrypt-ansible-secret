@@ -84,7 +84,8 @@ An example of a yamle structure made by ansible-vault
   Usage:
     ./decryptas.sh  ansible_secret_3 secretsfile.yaml
 
-  ansible [vault.py](https://github.com/ansible/ansible/tree/devel/lib/ansible/cli
+  ansible [vault.py](https://github.com/ansible/ansible/tree/devel/lib/ansible/cli)
+                      https://github.com/ansible/ansible/blob/devel/lib/ansible/cli/vault.py
   [cfn-flip](https://github.com/awslabs/aws-cfn-template-flip)
   [jq](https://github.com/stedolan/jq)
 

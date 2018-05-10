@@ -4,23 +4,20 @@ Tags: secrets managment, ansible-vault, AWS Encryption SDK
 
 Flannon Jackson
 
-* Agenda
-
-- Overview
-- Initial assumptions
-- Test candidates
-
 * Overview
 
-- This is a test to see if an encryption solutions can be used as a stand alone secrets management utility.
+- This is a test to evaluate if an encryption solutions can be used as a stand alone secrets management utility.
 
 * Initial Assumptions
 
--	Encrypted passwords will be stored in private repositories
+- Encrypted passwords will be stored in private repositories
 
--	The operating system’s security context is implicitly trusted: i.e. given a properly configured security context values from configuration files and exported environment variables are assumed to be trusted, even though all environment variables are viewable by the user and root: `sudo cat /proc/*/environ`
+- The operating system’s security context is implicitly trusted, values from configuration files and exported environment variables are assumed to be trusted, even though environment variables are viewable by any user with sufficient privileges:
+    `sudo cat /proc/*/environ`
 
--	The evaluation criteria are whether or not the software can be used as a standalone utility to encrypt and decrypt a saved secret and export it as an environment variable.
+- The evaluation criteria are whether or not the software can be used to encrypt and decrypt a saved secret, and export it as an environment variable.
+
+- Why environment variables?
 
 * Test candidates
 
@@ -36,27 +33,44 @@ Flannon Jackson
 
 - It can be used on the command line to encrypt a values
 
-    `ansible-vault encrypt_string 'mysecretword' --name encryptedpasswd \
-    --vault-password-file=.ansible/vault_password >> .ansible/secrets.yml`
+    `ansible-vault encrypt_string 'mysecretword' --name APP_KEY_1 \
+    --vault-password-file=.ansible-vault-secrets/vault_password >> ~/.ansible-vault-secrets/secrets.yml`
 
 - The location of the top level vault password can be set with an environment varialbe
 
-    export ANSIBLE_VAULT_PASSWORD_FILE="${HOME}/.ansible/vault_password"
+    export ANSIBLE_VAULT_PASSWORD_FILE="${HOME}/.ansible-vault-secrets/vault_password"
 
 - This makes it a little easier to to use,
 
-    `ansible-vault encrypt_string 'mysecretword' --name APP_KEY_1 >> \
+    `ansible-vault encrypt_string 'mysecretword' --name APP_KEY_2 >> \
      ~/.ansible-vault-secrets/secrets.yml`
+
+* secrets.yml
+
+- ansible-vault writes extended yaml output that splits the encripted value with newline characters after 80 characters
+
+    APP_KEY_1: !vault |
+      $ANSIBLE_VAULT;1.1;AES256
+      33326433393966336633656365396138366130656431383330343066356463663062323866653538
+      3965313064323135316538623533316461306337366361350a303363376331623965656532376465
+      65393934646665336164613437663261626235626532373661316434383466383233396538396365
+      3062343065623534310a373136343462343866656561356639373233633233343837333832396239
+      3539
 
 * Issues
 
-- While ansible-vault provides full support for encrypting and decrypting files it only provides support for encrypting words, but not for decrypting words saved in the ansible secrets yaml file.  To decrypt values from the yaml file you can write a kludgy shell script,
+- Ansible-vault provides full support for encrypting and decrypting files, and encrypting words, it doesn't have a direct mechanism for decrypting words saved in the ansible secrets.yml file.
+
+- My first attempt at decrypting the ansible secret was a bit of an ugly shell scritp,
 
     avdecrypt.sh APP_KEY_1 ~/.ansible-vault-secrets/secrets.yml
 
 * A more robust solution is possible with with python.
 
 - avdecrypt.py <Key Name>
+
+    avdecrypt.py APP_KEY_1
+
 - Reads encrypted secrets from $HOME/.ansible-vault-secrets/secrets.yaml
 - Writes decrypted secrets to $HOME/.ansible-vault-secrets/decrypted
 - Decrypted secrets can be exported as environment variables by sourcing the decrypted file from your .bashrc
@@ -64,36 +78,17 @@ Flannon Jackson
        source ${HOME}/.ansible-vault-secrets/decrypted
 
 
-* links
-
-for structured logging:
-.link https://github.com/Sirupsen/logrus Sirupsen/logrus
-
-for cross-platform filesystem notifications:
-.link https://github.com/fsnotify/fsnotify fsnotify/fsnotify
-
-* Bulleted list with details and links
-
-- batch renaming files/directories: [[https://github.com/shenwei356/brename][shenwei356/brename]]
-- URL shortener using PostgreSQL: [[https://github.com/douglasmakey/ursho][douglasmakey/ursho]]
-- inspect Linux namespaces and cgroups: [[https://github.com/mhausenblas/cinf][mhausenblas/cinf]]
-- back up and restore Kubernetes clusters: [[https://github.com/mhausenblas/reshifter][mhausenblas/reshifter]]
-- container resource consumption management: [[https://github.com/openshift-demos/resorcerer][openshift-demos/resorcerer]]
-- library for implementing RBAC: [[https://github.com/ory/ladon][ory/ladon]]
-
-* Bulleted links
-
-
-- [[https://github.com/coreos/etcd][etcd]]
-- [[https://github.com/hashicorp/consul][Consul]]
-- [[https://github.com/kubernetes/kubernetes][Kubernetes]]
-
 
 * AWS Encryption SDK CLI
 
-.image img/tgpl.jpg 500 _
+- encrypt
 
-.link https://www.amazon.com/Programming-Language-Addison-Wesley-Professional-Computing/dp/0134190440 Get it here …
+      ./aws-decrypt.sh -e my-super-secret-word
+
+
+- decrypt
+
+      ./aws-decrypt.sh -d AYADeCeD0+SnhbHbq4cGq5Vy1jEAXwABABVhd3MtY3J5cHRvLXB1YmxpYy1rZXkAREE0TDJLR1hKVW45aHBFT1RuVE12bmhSbzVUdWpFMTYwamUwSWRSZnI4eXJZWFozU3lUaElXc1R5NVpzVkFpNDZyZz09AAEAB2F3cy1rbXMAS2Fybjphd3M6a21zOnVzLWVhc3QtMTozOTUzNjI0NzE4Mjc6a2V5L2ZiYjI5NGViLTA3ZjktNDY0NC04NmUzLWQ3YzI5NmUxZmJmZQC4AQIBAHjWjmXthCNmR3K/prQA8U0NSiPgBYq1RHMFTVRJk8+1rAG1DSi1qQvTjs+1Co+EWVv+AAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMGbMcnSNUVwdXi1LGAgEQgDuuOndpi3p4mPCnkak2Sr0NcduGL4WvaDzuZFBd1EmnjyEYNmfS4moOz640kA/PgZMpzXVqOrzWsFUYJgIAAAAADAAAEAAAAAAAAAAAAAAAAAATwQyK8urpTPvsJl8+lJk//////wAAAAEAAAAAAAAAAAAAAAEAAAAVDkClFwLQx6fPpl0D7C2PGla+QACOE8ed2j9MMMUlCSOn33hG+gBnMGUCMCryPjhvqDdSsbzUOH3BA8Rcz6cq+IcHvzfcNVAdCg0u62cJfES8pc7BnKFeOFdFvQIxAMiIPaPv840itZpAI+t70v8W+wJrpvQUnu4jSMs0l8b24P4i+bIMkE933Y3xZ2KdQQ==
 
 * AWS Encryption SDK
 

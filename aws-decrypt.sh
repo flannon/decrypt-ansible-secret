@@ -8,10 +8,10 @@ usage() {
   echo "Useage: $0 -e | -d <value>"
 }
 
-CMK_ARN=${CMK_AWS_ENCRYPTION_SDK}
+#CMK_ARN=${CMK_AWS_ENCRYPTION_SDK}
 
 
-# Check that everthin is in place
+# Check that everthing is in place
 [[ -z $1 ]] || [[ -z $2 ]] && usage && exit 2
 [[ ! -x "$(command -v yq)" ]] && echo "yq is not installed. Exiting..." && exit 3
 

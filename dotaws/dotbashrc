@@ -1,0 +1,1 @@
+[[ -f ${HOME}/.aws/cmk_arn.sh ]] && source ${HOME}/.aws/cmk_arn.sh

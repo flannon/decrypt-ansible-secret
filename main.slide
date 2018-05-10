@@ -1,0 +1,102 @@
+Secrets Management
+with Ansible-Vault and AWS Encryption SDK
+Tags: secrets managment, ansible-vault, AWS Encryption SDK
+
+Flannon Jackson
+
+* Agenda
+
+- Overview
+- Initial assumptions
+- Test candidates
+
+* Overview
+
+- This is a test to see if an encryption solutions can be used as a stand alone secrets management utility.
+
+* Initial Assumptions
+
+-	Encrypted passwords will be stored in private repositories
+
+-	The operating system’s security context is implicitly trusted: i.e. given a properly configured security context values from configuration files and exported environment variables are assumed to be trusted, even though all environment variables are viewable by the user and root: `sudo cat /proc/*/environ`
+
+-	The evaluation criteria are whether or not the software can be used as a standalone utility to encrypt and decrypt a saved secret and export it as an environment variable.
+
+* Test candidates
+
+- Ansible-vault
+- AWS Encryption SDK
+- Hiera with eyaml (not yet evaluated)
+- sops from Mozilla (not yet evaluated):  [[https://jve.linuxwall.info/blog/index.php?post/2015/10/01/Introducing-Sops%3A-an-editor-of-encrypted-file-that-uses-AWS-KMS-and-PGP][sops]]
+
+
+* Ansible-vault
+
+- ansible-vault is an add-on utility for ansible that can be used to manage encrypted values in playbooks, or as a stand alone utility to encrypt and decrypt files, or to encrypt values and save them in a yaml file.
+
+- It can be used on the command line to encrypt a values
+
+    `ansible-vault encrypt_string 'mysecretword' --name encryptedpasswd \
+    --vault-password-file=.ansible/vault_password >> .ansible/secrets.yml`
+
+- The location of the top level vault password can be set with an environment varialbe
+
+    export ANSIBLE_VAULT_PASSWORD_FILE="${HOME}/.ansible/vault_password"
+
+- This makes it a little easier to to use,
+
+    `ansible-vault encrypt_string 'mysecretword' --name APP_KEY_1 >> \
+     ~/.ansible-vault-secrets/secrets.yml`
+
+* Issues
+
+- While ansible-vault provides full support for encrypting and decrypting files it only provides support for encrypting words, but not for decrypting words saved in the ansible secrets yaml file.  To decrypt values from the yaml file you can write a kludgy shell script,
+
+    avdecrypt.sh APP_KEY_1 ~/.ansible-vault-secrets/secrets.yml
+
+* A more robust solution is possible with with python.
+
+- avdecrypt.py <Key Name>
+- Reads encrypted secrets from $HOME/.ansible-vault-secrets/secrets.yaml
+- Writes decrypted secrets to $HOME/.ansible-vault-secrets/decrypted
+- Decrypted secrets can be exported as environment variables by sourcing the decrypted file from your .bashrc
+
+       source ${HOME}/.ansible-vault-secrets/decrypted
+
+
+* links
+
+for structured logging:
+.link https://github.com/Sirupsen/logrus Sirupsen/logrus
+
+for cross-platform filesystem notifications:
+.link https://github.com/fsnotify/fsnotify fsnotify/fsnotify
+
+* Bulleted list with details and links
+
+- batch renaming files/directories: [[https://github.com/shenwei356/brename][shenwei356/brename]]
+- URL shortener using PostgreSQL: [[https://github.com/douglasmakey/ursho][douglasmakey/ursho]]
+- inspect Linux namespaces and cgroups: [[https://github.com/mhausenblas/cinf][mhausenblas/cinf]]
+- back up and restore Kubernetes clusters: [[https://github.com/mhausenblas/reshifter][mhausenblas/reshifter]]
+- container resource consumption management: [[https://github.com/openshift-demos/resorcerer][openshift-demos/resorcerer]]
+- library for implementing RBAC: [[https://github.com/ory/ladon][ory/ladon]]
+
+* Bulleted links
+
+
+- [[https://github.com/coreos/etcd][etcd]]
+- [[https://github.com/hashicorp/consul][Consul]]
+- [[https://github.com/kubernetes/kubernetes][Kubernetes]]
+
+
+* AWS Encryption SDK CLI
+
+.image img/tgpl.jpg 500 _
+
+.link https://www.amazon.com/Programming-Language-Addison-Wesley-Professional-Computing/dp/0134190440 Get it here …
+
+* AWS Encryption SDK
+
+.image img/gia.jpg 500 _
+
+.link https://www.manning.com/books/go-in-action Get it here …

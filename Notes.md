@@ -96,9 +96,6 @@ An example of a yamle structure made by ansible-vault
   #cfn-flip
   #jq
 
-#### Node Wrapper
-
-    node -e 'require("./wrapper").init()'
 
 
 ## Other considerations

@@ -12,7 +12,7 @@ import botocore.session
 
 CMK_ARN = str(os.environ['CMK_ARN'])
 
-print(CMK_ARN)
+#print(CMK_ARN)
 
 def init_kms():
 
@@ -39,12 +39,19 @@ def encrypt(kms_key_provider, plaintext_secret):
 
 
 def secrets_writer(secrets_file, ciphertext):
-    # Read secrets.yml into a dicitonary, update old keys or add new key
+    # Read secrets.yml into a dictonary, update old keys or add new key
     # see https://stackoverflow.com/questions/48645391/how-to-append-data-to-yaml-file
     # for updating the dict
 
+    #print("ciphertext: ", ciphertext)
     key = sys.argv[2]
+    #print("key:", key)
     data = {key: ciphertext}
+    #for k, v in data.iteritems() :
+    ##for k, v in data.items() :
+    #    print("Key---:", k, "Value---:", v)
+    #print("AFTER for")
+
     with open(secrets_file, 'r') as yaml_file:
         cur_yaml = yaml.load(yaml_file)
         cur_yaml.update(data)
@@ -93,9 +100,12 @@ def main():
         lookup_key = args.pair[0]
         plaintext_secret = args.pair[1]
 
+        #print(lookup_key)
+        #print(plaintext_secret)
+
         # Encrypt the value
         ciphertext = encrypt(kms_key_provider, plaintext_secret)
-        print('Ciphertext: ', ciphertext)
+        #print('Ciphertext: ', ciphertext)
 
         # Write the key and vaule to secrets.yml
         secrets_writer(secrets_file, ciphertext)

@@ -24,6 +24,8 @@ from ansible.parsing.yaml.loader import AnsibleLoader
 
 def init():
 
+    # Set up the path to the secrets file and check that them
+    # permissions are restricted
     try:
         secrets_dir_path = expanduser("~") + "/.ansible-vault-secrets"
         secrets_file_path = secrets_dir_path + "/secrets.yml"
@@ -48,6 +50,9 @@ def init():
     return secrets_file_path, decrypted_file_path
 
 
+# decrypt the secret and store its value in !/.ansible-vault-secrets/decrypted
+# to export the secrets source the decrypted file
+#   source ${HOME}/.ansible-vault-secrets/decrypted
 def decrypt(secrets_file_path, decrypted_file_path):
 
     try:
@@ -93,6 +98,7 @@ def decrypt(secrets_file_path, decrypted_file_path):
         line = "export " + str(k) + "=" + str(v) + "\n"
         decrypted_file_out.write(line)
     decrypted_file_out.close()
+    print("secrets decrypted")
 
 
 def main():

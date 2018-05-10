@@ -61,15 +61,15 @@ Flannon Jackson
 
 - Ansible-vault provides full support for encrypting and decrypting files, and encrypting words, it doesn't have a direct mechanism for decrypting words saved in the ansible secrets.yml file.
 
-- My first attempt at decrypting the ansible secret was a bit of an ugly shell scritp,
+- My first attempt at decrypting the ansible secret was a bit of an ugly shell script
 
     avdecrypt.sh APP_KEY_1 ~/.ansible-vault-secrets/secrets.yml
 
-* A more robust solution is possible with with python.
+* A better solution is possible with python.
 
-- avdecrypt.py <Key Name>
+- avdecrypt.py
 
-    avdecrypt.py APP_KEY_1
+    avdecrypt.py
 
 - Reads encrypted secrets from $HOME/.ansible-vault-secrets/secrets.yaml
 - Writes decrypted secrets to $HOME/.ansible-vault-secrets/decrypted
@@ -85,13 +85,16 @@ Flannon Jackson
 
       ./aws-decrypt.sh -e my-super-secret-word
 
-
 - decrypt
 
       ./aws-decrypt.sh -d AYADeCeD0+SnhbHbq4cGq5Vy1jEAXwABABVhd3MtY3J5cHRvLXB1YmxpYy1rZXkAREE0TDJLR1hKVW45aHBFT1RuVE12bmhSbzVUdWpFMTYwamUwSWRSZnI4eXJZWFozU3lUaElXc1R5NVpzVkFpNDZyZz09AAEAB2F3cy1rbXMAS2Fybjphd3M6a21zOnVzLWVhc3QtMTozOTUzNjI0NzE4Mjc6a2V5L2ZiYjI5NGViLTA3ZjktNDY0NC04NmUzLWQ3YzI5NmUxZmJmZQC4AQIBAHjWjmXthCNmR3K/prQA8U0NSiPgBYq1RHMFTVRJk8+1rAG1DSi1qQvTjs+1Co+EWVv+AAAAfjB8BgkqhkiG9w0BBwagbzBtAgEAMGgGCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMGbMcnSNUVwdXi1LGAgEQgDuuOndpi3p4mPCnkak2Sr0NcduGL4WvaDzuZFBd1EmnjyEYNmfS4moOz640kA/PgZMpzXVqOrzWsFUYJgIAAAAADAAAEAAAAAAAAAAAAAAAAAATwQyK8urpTPvsJl8+lJk//////wAAAAEAAAAAAAAAAAAAAAEAAAAVDkClFwLQx6fPpl0D7C2PGla+QACOE8ed2j9MMMUlCSOn33hG+gBnMGUCMCryPjhvqDdSsbzUOH3BA8Rcz6cq+IcHvzfcNVAdCg0u62cJfES8pc7BnKFeOFdFvQIxAMiIPaPv840itZpAI+t70v8W+wJrpvQUnu4jSMs0l8b24P4i+bIMkE933Y3xZ2KdQQ==
 
 * AWS Encryption SDK
 
-.image img/gia.jpg 500 _
+- encrypt
 
-.link https://www.manning.com/books/go-in-action Get it here …
+    aws-encrypt.py --encrypt TEST secret-updated
+
+- decrypt
+
+      ./aws-encrypt.py --decrypt TEST
